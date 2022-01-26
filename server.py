@@ -1,6 +1,5 @@
 import socket
 from _thread import *
-import sys
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -20,6 +19,8 @@ print("Waiting for a connection")
 
 currentId = "0"
 pos = ["0:50,50", "1:100,100"]
+
+
 def threaded_client(conn):
     global currentId, pos
     conn.send(str.encode(currentId))
@@ -38,8 +39,10 @@ def threaded_client(conn):
                 id = int(arr[0])
                 pos[id] = reply
 
-                if id == 0: nid = 1
-                if id == 1: nid = 0
+                if id == 0:
+                    nid = 1
+                if id == 1:
+                    nid = 0
 
                 reply = pos[nid][:]
                 print("Sending: " + reply)
@@ -50,6 +53,7 @@ def threaded_client(conn):
 
     print("Connection Closed")
     conn.close()
+
 
 while True:
     conn, addr = s.accept()
